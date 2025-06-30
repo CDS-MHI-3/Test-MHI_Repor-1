@@ -41,4 +41,4 @@ jobs:
 
       # Step 5: Run pytest
       - name: Run pytest
-        run: pytest tests/tests_one/ 
+        run: pytest pytest tests/tests_one.py -vs
