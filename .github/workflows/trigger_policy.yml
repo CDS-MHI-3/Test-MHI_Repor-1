@@ -1,0 +1,44 @@
+name: Trigger Policy Scan
+
+on:
+  schedule:
+    - cron: '30 4 * * 1' # Every Monday at 4:30 AM UTC (10 AM IST)
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+
+jobs:
+  test:
+    name: Run Trigger Policy Test Cases
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main # Explicitly checkout the develop branch
+
+      # Step 2: Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Step 3: Cache dependencies
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # Step 5: Run pytest
+      - name: Run pytest
+        run: pytest tests/tests_one/ 
