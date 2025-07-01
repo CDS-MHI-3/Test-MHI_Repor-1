@@ -41,4 +41,11 @@ jobs:
 
       # Step 5: Run pytest
       - name: Run pytest
-        run: pytest tests/tests_one.py -vs
+        env:
+            INT_SMOKE_PW: ${{ secrets.INT_SMOKE_PW }}
+            INT_SMOKE_PIPELINE_PW: ${{ secrets.INT_SMOKE_PIPELINE_PW }}
+            INT_CORE_PW: ${{ secrets.INT_CORE_PW }}
+            INT_SLACK_PW: ${{ secrets.INT_SLACK_PW }}
+            INT_MSFTDEV_PW: ${{ secrets.INT_MSFTDEV_PW }}
+            OMNI_ENV: ${{ secrets.OMNI_ENV }}
+        run: pytest tests/tests_tenant.py -vs
