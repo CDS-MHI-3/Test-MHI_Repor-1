@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest
+          pip install pytest==8.4.1
           pip install dotenv==0.9.9
           pip install pytest-check==2.5.3
           pip install requests==2.32.4
@@ -50,4 +50,4 @@ jobs:
             INT_SLACK_PW: ${{ secrets.INT_SLACK_PW }}
             INT_MSFTDEV_PW: ${{ secrets.INT_MSFTDEV_PW }}
             OMNI_ENV: ${{ secrets.OMNI_ENV }}
-        run: pytest tests/tests_tenant.py -vs
+        run: pytest tests/app_factory/policies/security_posture_policies -k test_trigger_policy_scan -vs
