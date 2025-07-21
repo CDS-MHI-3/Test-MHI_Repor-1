@@ -42,10 +42,10 @@ jobs:
       # Step 4: Run pytest
       - name: Run pytest
         env:
-              INT_SMOKE_PW: ${{ secrets.INT_SMOKE_PW }}
-              INT_SMOKE_PIPELINE_PW: ${{ secrets.INT_SMOKE_PIPELINE_PW }}
-              INT_CORE_PW: ${{ secrets.INT_CORE_PW }}
-              INT_SLACK_PW: ${{ secrets.INT_SLACK_PW }}
-              INT_MSFTDEV_PW: ${{ secrets.INT_MSFTDEV_PW }}
-              OMNI_ENV: ${{ secrets.OMNI_ENV }}
+          INT_SMOKE_PW: ${{ secrets.INT_SMOKE_PW }}
+          INT_SMOKE_PIPELINE_PW: ${{ secrets.INT_SMOKE_PIPELINE_PW }}
+          INT_CORE_PW: ${{ secrets.INT_CORE_PW }}
+          INT_SLACK_PW: ${{ secrets.INT_SLACK_PW }}
+          INT_MSFTDEV_PW: ${{ secrets.INT_MSFTDEV_PW }}
+          OMNI_ENV: ${{ secrets.OMNI_ENV }}
         run: pytest tests/app_factory/policies -k test_trigger -vs
