@@ -39,6 +39,14 @@ jobs:
           pip install pdfminer==20191125
           pip install openpyxl==3.1.5
 
+          echo "AO_BASE_URL=${{ secrets.AO_BASE_URL }}" > "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "AO_USERNAME=${{ secrets.AO_USERNAME }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "AO_PASSWORD=${{ secrets.AO_PASSWORD }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "ORG_KEY=${{ secrets.ORG_KEY }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "PREFERRED_MONITORED_SERVICES=${{ secrets.PREFERRED_MONITORED_SERVICES }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "PRODUCTION=${{ secrets.PRODUCTION }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+
       # Step 4: Run pytest
       - name: Run pytest
         env:
