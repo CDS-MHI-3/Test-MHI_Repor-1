@@ -25,6 +25,15 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install dependencies
+        env:
+          AO_BASE_URL: ${{ secrets.AO_BASE_URL }}
+          AO_USERNAME: ${{ secrets.AO_USERNAME }}
+          AO_PASSWORD: ${{ secrets.AO_PASSWORD }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ORG_KEY: ${{ secrets.ORG_KEY }}
+          PREFERRED_MONITORED_SERVICES: ${{ secrets.PREFERRED_MONITORED_SERVICES }}
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          OMNI_ENV: ${{ secrets.OMNI_ENV }}
         run: |
           python -m pip install --upgrade pip
           pip install pytest==8.4.1
@@ -38,14 +47,14 @@ jobs:
           pip install sortedcontainers==2.4.0
           pip install pdfminer==20191125
           pip install openpyxl==3.1.5
-          echo ">> ${{ secrets.INT_SMOKE_PW }} <<"
-          echo "AO_BASE_URL=${{ secrets.AO_BASE_URL }}" > "config/.env.${{ secrets.INT_SMOKE_PW }}"
-          echo "AO_USERNAME=${{ secrets.AO_USERNAME }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
-          echo "AO_PASSWORD=${{ secrets.AO_PASSWORD }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
-          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
-          echo "ORG_KEY=${{ secrets.ORG_KEY }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
-          echo "PREFERRED_MONITORED_SERVICES=${{ secrets.PREFERRED_MONITORED_SERVICES }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
-          echo "PRODUCTION=${{ secrets.PRODUCTION }}" >> "config/.env.${{ secrets.INT_SMOKE_PW }}"
+          echo "OMNI_ENV=${OMNI_ENV}"
+          echo "AO_BASE_URL=${AO_BASE_URL}" > "config/.env.${OMNI_ENV}"
+          echo "AO_USERNAME=${AO_USERNAME}" >> "config/.env.${OMNI_ENV}"
+          echo "AO_PASSWORD=${AO_PASSWORD}" >> "config/.env.${OMNI_ENV}"
+          echo "ADMIN_EMAIL=${ADMIN_EMAIL}" >> "config/.env.${OMNI_ENV}"
+          echo "ORG_KEY=${ORG_KEY}" >> "config/.env.${OMNI_ENV}"
+          echo "PREFERRED_MONITORED_SERVICES=${PREFERRED_MONITORED_SERVICES}" >> "config/.env.${OMNI_ENV}"
+          echo "PRODUCTION=${PRODUCTION}" >> "config/.env.${OMNI_ENV}"
 
       # Step 4: Run pytest
       - name: Run pytest
