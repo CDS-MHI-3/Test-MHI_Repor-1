@@ -38,17 +38,50 @@ jobs:
           pip install sortedcontainers==2.4.0
           pip install pdfminer==20191125
           pip install openpyxl==3.1.5
+name: Trigger Policy Scan
+
+on:
+  schedule:
+    - cron: '30 4 * * 1' # Every Monday at 4:30 AM UTC (10 AM IST)
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+
+jobs:
+  test:
+    name: Run Trigger Policy Test Cases
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the branch
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      # Step 2: Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest==8.4.1
+          pip install dotenv==0.9.9
+          pip install pytest-check==2.5.3
+          pip install requests==2.32.4
+          pip install junitparser==4.0.2
+          pip install faker==37.4.0
+          pip install jwt==1.4.0
+          pip install pandas==2.3.1
+          pip install sortedcontainers==2.4.0
+          pip install pdfminer==20191125
+          pip install openpyxl==3.1.5
 
       # Step 4: Run pytest
       - name: Run pytest
         env:
-          AO_BASE_URL: ${{ secrets.AO_BASE_URL }}
-          AO_USERNAME: ${{ secrets.AO_USERNAME }}
-          AO_PASSWORD: ${{ secrets.AO_PASSWORD }}
-          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
-          ORG_KEY: ${{ secrets.ORG_KEY }}
-          PREFERRED_MONITORED_SERVICES: ${{ secrets.PREFERRED_MONITORED_SERVICES }}
-          PRODUCTION: ${{ secrets.PRODUCTION }}
           INT_SMOKE_URL: https://smoketest.int.appomni.com/
           INT_SMOKE_USERNAME: omni-test-pipeline
           INT_SMOKE_PW: ${{ secrets.INT_SMOKE_PW }}
@@ -58,9 +91,9 @@ jobs:
           INT_MSFTDEV_PW: ${{ secrets.INT_MSFTDEV_PW }}
         run: |
           touch config/.env.INT-SMOKE
-          echo "AO_BASE_URL=${{ env.AO_BASE_URL }}" >> config/.env.INT-SMOKE
-          echo "AO_USERNAME=${{ env.AO_USERNAME }}" >> config/.env.INT-SMOKE
-          echo "AO_PASSWORD=${{ secrets.AO_PASSWORD }}" >> config/.env.INT-SMOKE
+          echo "AO_BASE_URL=${{ env.INT_SMOKE_URL }}" >> config/.env.INT-SMOKE
+          echo "AO_USERNAME=${{ env.INT_SMOKE_USERNAME }}" >> config/.env.INT-SMOKE
+          echo "AO_PASSWORD=${{ secrets.INT_SMOKE_PIPELINE_PW }}" >> config/.env.INT-SMOKE
           echo "PREFERRED_MONITORED_SERVICES={}" >> config/.env.INT-SMOKE
           echo "PRODUCTION=False" >> config/.env.INT-SMOKE
           OMNI_ENV=INT-SMOKE pytest tests/app_factory/policies -k test_trigger -vs
