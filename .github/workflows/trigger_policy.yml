@@ -15,7 +15,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
-          ref: develop
+          ref: main
 
       # Step 2: Setup Python
       - name: Set up Python
