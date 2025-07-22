@@ -15,7 +15,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: develop
 
       # Step 2: Setup Python
       - name: Set up Python
@@ -25,15 +25,6 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install dependencies
-        env:
-          AO_BASE_URL: ${{ secrets.AO_BASE_URL }}
-          AO_USERNAME: ${{ secrets.AO_USERNAME }}
-          AO_PASSWORD: ${{ secrets.AO_PASSWORD }}
-          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
-          ORG_KEY: ${{ secrets.ORG_KEY }}
-          PREFERRED_MONITORED_SERVICES: ${{ secrets.PREFERRED_MONITORED_SERVICES }}
-          PRODUCTION: ${{ secrets.PRODUCTION }}
-          OMNI_ENV: ${{ secrets.OMNI_ENV }}
         run: |
           python -m pip install --upgrade pip
           pip install pytest==8.4.1
@@ -47,23 +38,29 @@ jobs:
           pip install sortedcontainers==2.4.0
           pip install pdfminer==20191125
           pip install openpyxl==3.1.5
-          echo "OMNI_ENV=${OMNI_ENV}"
-          touch "config/.env.${OMNI_ENV}"
-          echo "AO_BASE_URL=${AO_BASE_URL}" > "config/.env.${OMNI_ENV}"
-          echo "AO_USERNAME=${AO_USERNAME}" >> "config/.env.${OMNI_ENV}"
-          echo "AO_PASSWORD=${AO_PASSWORD}" >> "config/.env.${OMNI_ENV}"
-          echo "ADMIN_EMAIL=${ADMIN_EMAIL}" >> "config/.env.${OMNI_ENV}"
-          echo "ORG_KEY=${ORG_KEY}" >> "config/.env.${OMNI_ENV}"
-          echo "PREFERRED_MONITORED_SERVICES=${PREFERRED_MONITORED_SERVICES}" >> "config/.env.${OMNI_ENV}"
-          echo "PRODUCTION=${PRODUCTION}" >> "config/.env.${OMNI_ENV}"
 
       # Step 4: Run pytest
       - name: Run pytest
         env:
+          AO_BASE_URL: ${{ secrets.AO_BASE_URL }}
+          AO_USERNAME: ${{ secrets.AO_USERNAME }}
+          AO_PASSWORD: ${{ secrets.AO_PASSWORD }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ORG_KEY: ${{ secrets.ORG_KEY }}
+          PREFERRED_MONITORED_SERVICES: ${{ secrets.PREFERRED_MONITORED_SERVICES }}
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          INT_SMOKE_URL: https://smoketest.int.appomni.com/
+          INT_SMOKE_USERNAME: omni-test-pipeline
           INT_SMOKE_PW: ${{ secrets.INT_SMOKE_PW }}
           INT_SMOKE_PIPELINE_PW: ${{ secrets.INT_SMOKE_PIPELINE_PW }}
           INT_CORE_PW: ${{ secrets.INT_CORE_PW }}
           INT_SLACK_PW: ${{ secrets.INT_SLACK_PW }}
           INT_MSFTDEV_PW: ${{ secrets.INT_MSFTDEV_PW }}
-          OMNI_ENV: ${{ secrets.OMNI_ENV }}
-        run: pytest tests/app_factory/policies -k test_trigger -vs
+        run: |
+          touch config/.env.INT-SMOKE
+          echo "AO_BASE_URL=${{ env.AO_BASE_URL }}" >> config/.env.INT-SMOKE
+          echo "AO_USERNAME=${{ env.AO_USERNAME }}" >> config/.env.INT-SMOKE
+          echo "AO_PASSWORD=${{ secrets.AO_PASSWORD }}" >> config/.env.INT-SMOKE
+          echo "PREFERRED_MONITORED_SERVICES={}" >> config/.env.INT-SMOKE
+          echo "PRODUCTION=False" >> config/.env.INT-SMOKE
+          OMNI_ENV=INT-SMOKE pytest tests/app_factory/policies -k test_trigger -vs
