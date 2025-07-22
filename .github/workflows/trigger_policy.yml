@@ -48,6 +48,7 @@ jobs:
           pip install pdfminer==20191125
           pip install openpyxl==3.1.5
           echo "OMNI_ENV=${OMNI_ENV}"
+          touch "config/.env.${OMNI_ENV}"
           echo "AO_BASE_URL=${AO_BASE_URL}" > "config/.env.${OMNI_ENV}"
           echo "AO_USERNAME=${AO_USERNAME}" >> "config/.env.${OMNI_ENV}"
           echo "AO_PASSWORD=${AO_PASSWORD}" >> "config/.env.${OMNI_ENV}"
