@@ -38,46 +38,6 @@ jobs:
           pip install sortedcontainers==2.4.0
           pip install pdfminer==20191125
           pip install openpyxl==3.1.5
-name: Trigger Policy Scan
-
-on:
-  schedule:
-    - cron: '30 4 * * 1' # Every Monday at 4:30 AM UTC (10 AM IST)
-  workflow_dispatch: # Allows manual triggering from the GitHub UI
-
-jobs:
-  test:
-    name: Run Trigger Policy Test Cases
-    runs-on: ubuntu-latest
-
-    steps:
-      # Step 1: Checkout the branch
-      - name: Checkout branch
-        uses: actions/checkout@v4
-        with:
-          ref: develop
-
-      # Step 2: Setup Python
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest==8.4.1
-          pip install dotenv==0.9.9
-          pip install pytest-check==2.5.3
-          pip install requests==2.32.4
-          pip install junitparser==4.0.2
-          pip install faker==37.4.0
-          pip install jwt==1.4.0
-          pip install pandas==2.3.1
-          pip install sortedcontainers==2.4.0
-          pip install pdfminer==20191125
-          pip install openpyxl==3.1.5
 
       # Step 4: Run pytest
       - name: Run pytest
