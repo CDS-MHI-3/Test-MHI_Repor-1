@@ -1,0 +1,428 @@
+{
+    "created": 1753192313.70928,
+    "duration": 665.812293052673,
+    "exitcode": 1,
+    "root": "/usr/src/app",
+    "environment": {
+  
+    },
+    "summary": {
+      "passed": 5,
+      "failed": 2,
+      "total": 7,
+      "collected": 7
+    },
+    "tests": [
+      {
+        "nodeid": "tests/monitored_services_add/test_add_o365_ms.py::TestClass::test_add_monitored_service_o365",
+        "lineno": 23,
+        "outcome": "passed",
+        "setup": {
+          "duration": 57.0525787189999,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 49.213711087,
+          "outcome": "passed",
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for dpateltest2",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753191753.84635,
+              "msecs": 846,
+              "relativeCreated": 106383.367300034,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ]
+        },
+        "teardown": {
+          "duration": 0.0948630500000718,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/monitored_services_add/test_add_jumpcloud_ms.py::TestClass::test_add_monitored_service_jumpcloud",
+        "lineno": 22,
+        "outcome": "passed",
+        "setup": {
+          "duration": 56.955786328,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 32.574028437,
+          "outcome": "passed",
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for Jumpcloud-connections",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753191843.5459,
+              "msecs": 545,
+              "relativeCreated": 196082.917690277,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ]
+        },
+        "teardown": {
+          "duration": 0.117913778000002,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/monitored_services_add/test_add_jira_ms.py::TestClass::test_add_monitored_service_jira",
+        "lineno": 23,
+        "outcome": "failed",
+        "setup": {
+          "duration": 57.0684273769999,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 51.8859928029999,
+          "outcome": "failed",
+          "crash": {
+            "path": "/usr/src/app/tests/monitored_services_add/base_test.py",
+            "lineno": 153,
+            "message": "Failed: Failed to connect jira - dpatel-local-test"
+          },
+          "traceback": [
+            {
+              "path": "tests/monitored_services_add/test_add_jira_ms.py",
+              "lineno": 42,
+              "message": "in test_add_monitored_service_jira"
+            },
+            {
+              "path": "tests/monitored_services_add/base_test.py",
+              "lineno": 153,
+              "message": "in verify_add_ms"
+            }
+          ],
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for jira - dpatel-local-test",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753191944.43435,
+              "msecs": 434,
+              "relativeCreated": 296971.358776093,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            },
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for jira - dpatel-local-test",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753191948.64632,
+              "msecs": 646,
+              "relativeCreated": 301183.329343796,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            },
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for jira - dpatel-local-test",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753191952.82941,
+              "msecs": 829,
+              "relativeCreated": 305366.424798965,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ],
+          "longrepr": "tests/monitored_services_add/base_test.py:132: in verify_add_ms\n    assert connected_flag is True, (\nE   AssertionError: Expected jira - dpatel-local-test to have connected flag = True, Actual connected flag was False\nE   assert False is True\n\nDuring handling of the above exception, another exception occurred:\ntests/monitored_services_add/test_add_jira_ms.py:42: in test_add_monitored_service_jira\n    self.verify_add_ms(monitored_service_landing_page)\ntests/monitored_services_add/base_test.py:153: in verify_add_ms\n    pytest.fail(f\"Failed to connect {self.org_name}\")\nE   Failed: Failed to connect jira - dpatel-local-test"
+        },
+        "teardown": {
+          "duration": 0.200362864999988,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/monitored_services_add/test_add_auth0_ms.py::TestClass::test_add_monitored_service_auth0",
+        "lineno": 22,
+        "outcome": "passed",
+        "setup": {
+          "duration": 56.990208704,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 31.8003997770001,
+          "outcome": "passed",
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for Auth0-Connections",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753192041.68094,
+              "msecs": 680,
+              "relativeCreated": 394217.953681946,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ]
+        },
+        "teardown": {
+          "duration": 0.0895367870000428,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/monitored_services_add/test_add_webex_ms.py::TestClass::test_add_monitored_service_webex",
+        "lineno": 23,
+        "outcome": "failed",
+        "setup": {
+          "duration": 56.8465493259999,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 44.217277147,
+          "outcome": "failed",
+          "crash": {
+            "path": "/usr/src/app/tests/monitored_services_add/base_test.py",
+            "lineno": 153,
+            "message": "Failed: Failed to connect WebEx - Y2lzY29z"
+          },
+          "traceback": [
+            {
+              "path": "tests/monitored_services_add/test_add_webex_ms.py",
+              "lineno": 41,
+              "message": "in test_add_monitored_service_webex"
+            },
+            {
+              "path": "tests/monitored_services_add/base_test.py",
+              "lineno": 153,
+              "message": "in verify_add_ms"
+            }
+          ],
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for WebEx - Y2lzY29z",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753192133.58912,
+              "msecs": 589,
+              "relativeCreated": 486126.135110855,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            },
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for WebEx - Y2lzY29z",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753192137.78967,
+              "msecs": 789,
+              "relativeCreated": 490326.685905457,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            },
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for WebEx - Y2lzY29z",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753192143.02099,
+              "msecs": 20,
+              "relativeCreated": 495558.003664017,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ],
+          "longrepr": "tests/monitored_services_add/base_test.py:132: in verify_add_ms\n    assert connected_flag is True, (\nE   AssertionError: Expected WebEx - Y2lzY29z to have connected flag = True, Actual connected flag was False\nE   assert False is True\n\nDuring handling of the above exception, another exception occurred:\ntests/monitored_services_add/test_add_webex_ms.py:41: in test_add_monitored_service_webex\n    self.verify_add_ms(monitored_service_landing_page)\ntests/monitored_services_add/base_test.py:153: in verify_add_ms\n    pytest.fail(f\"Failed to connect {self.org_name}\")\nE   Failed: Failed to connect WebEx - Y2lzY29z"
+        },
+        "teardown": {
+          "duration": 0.438007368000058,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/monitored_services_add/test_add_crowdstrike_ms.py::TestClass::test_add_monitored_service_crowdstrike",
+        "lineno": 22,
+        "outcome": "passed",
+        "setup": {
+          "duration": 56.7127673810001,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 23.235465841,
+          "outcome": "passed",
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for CrowdStrike-connections",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753192223.19418,
+              "msecs": 194,
+              "relativeCreated": 575731.194734573,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ]
+        },
+        "teardown": {
+          "duration": 0.0980068070000471,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/monitored_services_add/test_add_duo_ms.py::TestClass::test_add_monitored_service_duo",
+        "lineno": 23,
+        "outcome": "passed",
+        "setup": {
+          "duration": 57.1527878310001,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 32.7633405889999,
+          "outcome": "passed",
+          "log": [
+            {
+              "name": "root",
+              "msg": "Possible loading issue.. Checking integration_connected flag for api-5acfdff3.duosecurity.com",
+              "args": null,
+              "levelname": "WARNING",
+              "levelno": 30,
+              "pathname": "/usr/src/app/tools/api_calls/core_monitoredservices/get_monitoredservice.py",
+              "filename": "get_monitoredservice.py",
+              "module": "get_monitoredservice",
+              "exc_info": null,
+              "exc_text": null,
+              "stack_info": null,
+              "lineno": 76,
+              "funcName": "check_connected_flag",
+              "created": 1753192313.20739,
+              "msecs": 207,
+              "relativeCreated": 665744.399547577,
+              "thread": 140200351177600,
+              "threadName": "MainThread",
+              "processName": "MainProcess",
+              "process": 61
+            }
+          ]
+        },
+        "teardown": {
+          "duration": 0.0942708850000145,
+          "outcome": "passed"
+        }
+      }
+    ]
+  }

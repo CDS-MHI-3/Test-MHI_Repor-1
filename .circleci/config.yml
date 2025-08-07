@@ -1,5 +1,13 @@
 version: 2.1
 
+parameters:
+  environment:
+    type: string
+    default: "dev"
+  job_name:
+    type: string
+    default: "add-ms-connection"
+
 jobs:
   build:
     docker:
@@ -8,8 +16,41 @@ jobs:
       - checkout
       - run: echo "Hello, CircleCI!"
 
+  upload-test-results:
+    docker:
+      - image: cimg/python:3.9
+    parameters:
+      environment:
+        type: string
+      job_name:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Upload test results to Google Sheets
+          command: |
+            cd /usr/src/app/
+            SHEET_NAME=$(date +%F)
+            for json_file in logs/test_results*.json; do
+              if [ -f "$json_file" ]; then
+                python ./scripts/upload_test_results_to_sheets.py \
+                  --json-file "$json_file" \
+                  --environment "<< parameters.environment >>" \
+                  --job-name "<< parameters.job_name >>" \
+                  --build-url "${CIRCLE_BUILD_URL}" \
+                  --worksheet-name "$SHEET_NAME"
+              fi
+            done
+
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
+
+  add-ms-connection:
+    jobs:
+      - upload-test-results:
+          name: upload-ms-test-results
+          environment: "staging"
+          job_name: "add-ms-connection"
