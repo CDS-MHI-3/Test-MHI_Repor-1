@@ -39,19 +39,34 @@ class TestResultsUploader:
         ]
         
         try:
-            # Try to parse as JSON string first
-            if service_account_key.startswith('{'):
-                print("COMING HERE")
-                creds_dict = json.loads(service_account_key)
-                creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
+            # Try parsing as JSON string (strip in case of leading/trailing whitespace)
+            key_trimmed = service_account_key.strip()
+            
+            # Handle escaped quotes if needed
+            if key_trimmed.startswith('{') or key_trimmed.startswith('"{"'):
+                try:
+                    # Handle JSON string passed with escaped quotes
+                    if key_trimmed.startswith('"{"'):
+                        print("[DEBUG] Parsing service account key from escaped JSON string")
+                        key_trimmed = json.loads(key_trimmed)  # unescape
+                    creds_dict = json.loads(key_trimmed)
+                    creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
+                except json.JSONDecodeError as e:
+                    print(f"[ERROR] Failed to parse service account key JSON: {e}")
+                    sys.exit(1)
             else:
                 # Treat as file path
+                if not os.path.exists(service_account_key):
+                    print(f"[ERROR] Service account key file not found: {service_account_key}")
+                    sys.exit(1)
                 creds = Credentials.from_service_account_file(service_account_key, scopes=scope)
-                
+
             return gspread.authorize(creds)
+
         except Exception as e:
-            print(f"Authentication failed: {e}")
+            print(f"[ERROR] Authentication failed: {e}")
             sys.exit(1)
+
     
     def parse_test_results(self, json_file_path: str) -> Dict[str, Any]:
         """Parse pytest JSON report"""
