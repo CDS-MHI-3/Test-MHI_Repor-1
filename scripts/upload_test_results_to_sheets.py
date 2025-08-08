@@ -33,39 +33,36 @@ class TestResultsUploader:
         
     def _authenticate(self, service_account_key: str) -> gspread.Client:
         """Authenticate with Google Sheets API"""
+        import codecs
+
         scope = [
             'https://spreadsheets.google.com/feeds',
             'https://www.googleapis.com/auth/drive'
         ]
-        
+
         try:
-            # Try parsing as JSON string (strip in case of leading/trailing whitespace)
-            key_trimmed = service_account_key.strip()
-            
-            # Handle escaped quotes if needed
-            if key_trimmed.startswith('{') or key_trimmed.startswith('"{"'):
-                try:
-                    # Handle JSON string passed with escaped quotes
-                    if key_trimmed.startswith('"{"'):
-                        print("[DEBUG] Parsing service account key from escaped JSON string")
-                        key_trimmed = json.loads(key_trimmed)  # unescape
-                    creds_dict = json.loads(key_trimmed)
-                    creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
-                except json.JSONDecodeError as e:
-                    print(f"[ERROR] Failed to parse service account key JSON: {e}")
-                    sys.exit(1)
-            else:
-                # Treat as file path
-                if not os.path.exists(service_account_key):
-                    print(f"[ERROR] Service account key file not found: {service_account_key}")
-                    sys.exit(1)
-                creds = Credentials.from_service_account_file(service_account_key, scopes=scope)
+            # Step 1: Strip extra quotes if present
+            raw_key = service_account_key.strip().strip('"').strip("'")
+
+            # Step 2: Decode escape sequences like \n and \"
+            decoded_key = codecs.decode(raw_key, 'unicode_escape')
+
+            # Step 3: Load as JSON
+            try:
+                creds_dict = json.loads(decoded_key)
+                creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
+                print("[INFO] Authenticated using JSON string in env var")
+            except json.JSONDecodeError as e:
+                print(f"[ERROR] Could not parse decoded service account key: {e}")
+                sys.exit(1)
 
             return gspread.authorize(creds)
 
         except Exception as e:
             print(f"[ERROR] Authentication failed: {e}")
             sys.exit(1)
+
+
 
     
     def parse_test_results(self, json_file_path: str) -> Dict[str, Any]:
