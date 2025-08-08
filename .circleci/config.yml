@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Upload test results to Google Sheets
           command: |
-            cd /usr/src/app/
+            # cd /usr/src/app/
             SHEET_NAME=$(date +%F)
             for json_file in logs/test_results*.json; do
               if [ -f "$json_file" ]; then
