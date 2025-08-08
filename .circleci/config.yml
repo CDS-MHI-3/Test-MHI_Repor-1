@@ -24,23 +24,29 @@ jobs:
         type: string
       job_name:
         type: string
-    steps:
-      - checkout
-      - run:
-          name: Upload test results to Google Sheets
-          command: |
-            # cd /usr/src/app/
-            SHEET_NAME=$(date +%F)
-            for json_file in logs/test_results*.json; do
-              if [ -f "$json_file" ]; then
-                python ./scripts/upload_test_results_to_sheets.py \
-                  --json-file "$json_file" \
-                  --environment "<< parameters.environment >>" \
-                  --job-name "<< parameters.job_name >>" \
-                  --build-url "${CIRCLE_BUILD_URL}" \
-                  --worksheet-name "$SHEET_NAME"
-              fi
-            done
+  steps:
+    - checkout
+
+    - run:
+        name: Install Python dependencies
+        command: |
+          python -m pip install --upgrade pip
+          pip install gspread google-auth google-auth-oauthlib google-auth-httplib2
+
+    - run:
+        name: Upload test results to Google Sheets
+        command: |
+          SHEET_NAME=$(date +%F)
+          for json_file in logs/test_results*.json; do
+            if [ -f "$json_file" ]; then
+              python ./scripts/upload_test_results_to_sheets.py \
+                --json-file "$json_file" \
+                --environment "<< parameters.environment >>" \
+                --job-name "<< parameters.job_name >>" \
+                --build-url "${CIRCLE_BUILD_URL}" \
+                --worksheet-name "$SHEET_NAME"
+            fi
+          done
 
 workflows:
   version: 2
